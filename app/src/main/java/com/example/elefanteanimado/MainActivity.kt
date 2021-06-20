@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+
 import androidx.appcompat.app.AlertDialog
 
 
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var posicaoElefante: BancoDAO
     private lateinit var retrofit: Retrofit
-    private lateinit var servico: ITextoReq
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    fun recuperarTexto(index: Int) {
+    private fun recuperarTexto(index: Int) {
         val iTextoReq: ITextoReq = retrofit.create(ITextoReq::class.java)
         val call = iTextoReq.list()
 
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<TextoRequisitado>>, t: Throwable) {
-                t?.message?.let { Log.e("onFailure error", it) }
+                t.message?.let { Log.e("onFailure error", it) }
             }
 
         })
@@ -116,8 +116,7 @@ class MainActivity : AppCompatActivity() {
 
     fun escolher(view: View) {
         esconderEledantes()
-        val id: Int = view.id
-        when (id) {
+        when (view.id) {
             R.id.step01 -> {
                 posicaoElefante.atualizar("01")
                 elefante01.visibility = View.VISIBLE
